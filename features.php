@@ -4,25 +4,25 @@ $currentPage = 'features';
 include __DIR__ . '/includes/header.php';
 ?>
 <div class="panel">
-  <h2><img width="150" src="https://www.iconshock.com/image/Brilliant/General/window" alt="">Core Experience</h2>
+  <h2><img width="100" src="https://www.iconshock.com/image/Brilliant/General/window" alt="">Core Experience</h2>
   <div class="grid">
     <div class="card">
-      <img src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.rw-designer.com%2Ficon-image%2F18207-256x256x8.png&f=1&nofb=1" alt="">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/0/0a/Unofficial_Windows_logo_variant_-_2002%E2%80%932012_%28Multicolored%29.svg" alt="">
       <div><h3>Stable Win10 Base</h3><p>Modern driver support and security updates with classic styling.</p></div>
     </div>
     <div class="card">
-      <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ficons.iconarchive.com%2Ficons%2Ficonsmind%2Foutline%2F256%2FSynchronize-icon.png&f=1&nofb=1" alt="">
-      <div><h3>Integrated Updates</h3><p>Simple update utility keeps Longbridge fresh without telemetry.</p></div>
+      <img src="https://www.iconshock.com/image/SuperVista/Security/live_update" alt="">
+      <div><h3>Integrated Updates</h3><p>Simple update utility keeps Longbridge fresh without telemetry. (TO BE RELEASED NEXT VERSIONS)</p></div>
     </div>
     <div class="card">
-      <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcdn.iconscout.com%2Ficon%2Ffree%2Fpng-256%2Fshield-1776056-1511651.png&f=1&nofb=1" alt="">
+      <img src="https://www.iconshock.com/image/RealVista/General/folder" alt="">
       <div><h3>Optimized & Secure</h3><p>Lightweight services and privacy tweaks out of the box.</p></div>
     </div>
   </div>
 </div>
 
 <div class="panel">
-  <h2><img width="150" src="https://www.iconshock.com/image/Brilliant/General/window" alt="">Visual Enhancements</h2>
+  <h2><img width="100" src="https://www.iconshock.com/image/RealVista/General/binoculars" alt="">Visual Enhancements</h2>
   <div class="grid">
     <div class="card">
       <img src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.rw-designer.com%2Ficon-image%2F18707-256x256x8.png&f=1&nofb=1" alt="">
@@ -40,14 +40,14 @@ include __DIR__ . '/includes/header.php';
 </div>
 
 <div class="panel">
-  <h2><img width="150" src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fvectorified.com%2Fimages%2Fwindows-movie-maker-icon-28.png&f=1&nofb=1" alt="">Legacy Apps</h2>
+  <h2><img width="100" src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fvectorified.com%2Fimages%2Fwindows-movie-maker-icon-28.png&f=1&nofb=1" alt="">Legacy Apps</h2>
   <div class="grid">
     <div class="card">
       <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fvectorified.com%2Fimages%2Fwindows-movie-maker-icon-28.png&f=1&nofb=1" alt="">
       <div><h3>Movie Maker</h3><p>Create nostalgic videos with the classic editor.</p></div>
     </div>
     <div class="card">
-      <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ficons.iconarchive.com%2Ficons%2Fpaomedia%2Fsmall-n-flat%2F256%2Fcamera-icon.png&f=1&nofb=1" alt="">
+      <img src="https://www.nesabamedia.com/wp-content/uploads/2021/04/Windows-Photo-Gallery-Logo-1.png" alt="">
       <div><h3>Photo Gallery</h3><p>Organize pictures with a retro yet practical tool.</p></div>
     </div>
     <div class="card">
@@ -58,10 +58,10 @@ include __DIR__ . '/includes/header.php';
 </div>
 
 <div class="panel">
-  <h2><img width="150" src="https://www.iconshock.com/image/Vista/General/settings" alt="">Customization &amp; Updates</h2>
+  <h2><img width="100" src="https://www.iconshock.com/image/Windows7/General/settings" alt="">Customization &amp; Updates</h2>
   <div class="grid">
     <div class="card">
-      <img src="https://www.iconshock.com/image/Vista/General/magic_wand" alt="">
+      <img src="https://www.iconshock.com/image/Windows7/General/pictures" alt="">
       <div><h3>Theme Manager</h3><p>Switch between styles like Aero Hillel or Plex and tweak Start menu layouts instantly.</p></div>
     </div>
     <div class="card">

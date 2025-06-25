@@ -33,7 +33,7 @@ if (!isset($currentPage)) {
       <li><a href="/logout.php"><img height="40" width="40" src="https://www.iconshock.com/image/Vista/General/logout" alt="Logout">Logout</a></li>
       <?php else: ?>
       <li><a <?php if($currentPage=='login') echo 'class="active"'; ?> href="/login.php"><img height="40" width="40" src="https://www.iconshock.com/image/Vista/General/lock" alt="Login">Login</a></li>
-      <li><a <?php if($currentPage=='register') echo 'class="active"'; ?> href="/register.php"><img height="40" width="40" src="https://www.iconshock.com/image/Vista/General/add_user" alt="Register">Register</a></li>
+      <li><a <?php if($currentPage=='register') echo 'class="active"'; ?> href="/register.php"><img height="40" width="40" src="https://www.iconshock.com/image/Vista/Education/attendance_list" alt="Register">Register</a></li>
       <?php endif; ?>
     </ul>
   </nav>
