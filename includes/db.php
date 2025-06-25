@@ -7,6 +7,7 @@ try {
     $db = new PDO("mysql:host=$dbHost;dbname=$dbName;charset=utf8mb4", $dbUser, $dbPass);
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $db->exec("CREATE TABLE IF NOT EXISTS users (id INT AUTO_INCREMENT PRIMARY KEY, username VARCHAR(255) UNIQUE, password VARCHAR(255))");
+    $db->exec("CREATE TABLE IF NOT EXISTS messages (id INT AUTO_INCREMENT PRIMARY KEY, username VARCHAR(255), message TEXT, created TIMESTAMP DEFAULT CURRENT_TIMESTAMP)");
     $check = $db->prepare('SELECT COUNT(*) FROM users WHERE username = ?');
     $check->execute(['admin']);
     if (!$check->fetchColumn()) {
