@@ -239,11 +239,11 @@ footer .sidebar li {
 .chat-panel {
   max-width: 600px;
   margin: 0 auto;
-  background: url('/img/wlm/chat_header.png') no-repeat top center;
+  background: url('/img/wlm/background/chat_header.png') no-repeat top center;
   padding-top: 40px;
 }
 .chat-window {
-  background: #fff url('/img/wlm/chat_icons_background.png') repeat-x top;
+  background: #fff url('/img/wlm/background/chat_icons_background.png') repeat-x top;
   border: 1px solid #a0a5b0;
   height: 300px;
   overflow-y: auto;
@@ -259,17 +259,17 @@ footer .sidebar li {
   gap: 6px;
 }
 .chat-form button {
-  background: url('/img/wlm/send.png') no-repeat center;
+  background: url('/img/wlm/general/arrow.png') no-repeat center;
   width: 32px;
   height: 32px;
   border: none;
 }
 .chat-form button:hover {
-  background-image: url('/img/wlm/send_hover.png');
+  background-image: url('/img/wlm/general/arrow_white.png');
   cursor: pointer;
 }
 .chat-form #nudge-btn {
-  background-image: url('/img/wlm/send_nudge.png');
+  background-image: url('/img/wlm/chat/send_nudge.png');
 }
 .chat-form #nudge-btn:hover {
   filter: brightness(1.2);
