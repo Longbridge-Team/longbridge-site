@@ -306,7 +306,7 @@ footer .sidebar li {
 }
 .chat-form #nudge-btn {
   background-image: url('/img/wlm/chat/send_nudge.png');
-  background-size: 16px 16px;
+  background-size: 24px 16px;
 }
 .chat-form #nudge-btn:hover {
   filter: brightness(1.2);
