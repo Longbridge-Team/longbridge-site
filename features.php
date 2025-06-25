@@ -56,4 +56,18 @@ include __DIR__ . '/includes/header.php';
     </div>
   </div>
 </div>
+
+<div class="panel">
+  <h2><img width="150" src="https://www.iconshock.com/image/Vista/General/settings" alt="">Customization &amp; Updates</h2>
+  <div class="grid">
+    <div class="card">
+      <img src="https://www.iconshock.com/image/Vista/General/magic_wand" alt="">
+      <div><h3>Theme Manager</h3><p>Switch between styles like Aero Hillel or Plex and tweak Start menu layouts instantly.</p></div>
+    </div>
+    <div class="card">
+      <img src="https://www.iconshock.com/image/Vista/General/download" alt="">
+      <div><h3>Integrated Update Tool</h3><p>Planned utility to keep Longbridge current with one click.</p></div>
+    </div>
+  </div>
+</div>
 <?php include __DIR__ . '/includes/footer.php'; ?>
