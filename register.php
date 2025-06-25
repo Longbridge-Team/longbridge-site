@@ -1,8 +1,10 @@
 <?php
 session_start();
 require __DIR__ . '/includes/db.php';
+require __DIR__ . '/includes/ratelimit.php';
 $error = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    rateLimit('register', 5, 60);
     $user = trim($_POST['username'] ?? '');
     $pass = $_POST['password'] ?? '';
     $captcha = $_POST['captcha'] ?? '';
