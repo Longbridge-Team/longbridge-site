@@ -19,9 +19,10 @@ include __DIR__ . '/includes/header.php';
       <option value="offtopic">Off-topic</option>
     </select>
     <input type="text" id="chat-input" maxlength="250" placeholder="Type a message" autocomplete="off">
-    <button type="button" id="nudge-btn" aria-label="Nudge"></button>
-    <button type="submit" aria-label="Send"></button>
+    <button type="button" id="nudge-btn" class="aerobutton" aria-label="Nudge"></button>
+    <button type="submit" class="aerobutton" aria-label="Send"></button>
   </form>
+  <audio id="nudge-sound" src="/img/nudge.mp3" preload="auto"></audio>
 </div>
 <script src="/js/chat.js"></script>
 <?php include __DIR__ . '/includes/footer.php'; ?>
