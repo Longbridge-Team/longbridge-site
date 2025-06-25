@@ -30,7 +30,7 @@ include __DIR__ . '/includes/header.php';
   <?php if ($error): ?>
   <p style="color:red;"><strong><?php echo htmlspecialchars($error); ?></strong></p>
   <?php endif; ?>
-  <form method="post" action="login.php">
+  <form method="post" action="login.aspx">
     <p>
       <label>Username: <input type="text" name="username"></label>
     </p>
