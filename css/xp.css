@@ -272,19 +272,26 @@ footer .sidebar li {
   margin-bottom: 8px;
 }
 .chat-form {
+  position: relative;
   display: flex;
   gap: 6px;
 }
 .chat-form button {
   background: url('/img/wlm/general/arrow.png') no-repeat center;
-  width: 32px;
-  height: 32px;
+  width: 24px;
+  height: 24px;
   border: 2px solid transparent;
   background-color: transparent;
 }
 .chat-form button:hover {
   background-image: url('/img/wlm/general/arrow_white.png');
   cursor: pointer;
+}
+.chat-form #emoji-btn {
+  background-image: url('/img/wlm/chat/select_emoticon.png');
+}
+.chat-form #emoji-btn:hover {
+  filter: brightness(1.2);
 }
 .chat-form #nudge-btn {
   background-image: url('/img/wlm/chat/send_nudge.png');
@@ -300,6 +307,31 @@ footer .sidebar li {
   flex: 1;
   padding: 4px;
   border: 1px solid #a0a5b0;
+}
+.emoji-panel {
+  position: absolute;
+  bottom: 36px;
+  left: 0;
+  display: none;
+  background: #fff;
+  border: 1px solid #a0a5b0;
+  padding: 4px;
+  max-height: 150px;
+  width: 200px;
+  overflow-y: auto;
+  flex-wrap: wrap;
+  z-index: 10;
+}
+.emoji-panel img {
+  width: 20px;
+  height: 20px;
+  margin: 2px;
+  cursor: pointer;
+}
+.emoji {
+  width: 20px;
+  height: 20px;
+  vertical-align: middle;
 }
 .chat-message {
   margin-bottom: 6px;
