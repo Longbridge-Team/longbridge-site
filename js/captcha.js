@@ -16,13 +16,7 @@ function loadCaptcha() {
         ctx.fillStyle = `hsl(${Math.floor(Math.random()*360)},70%,40%)`;
         ctx.fillText(d.code[i], 10 + i * 22, 20);
       }
-      const logo = new Image();
-      logo.crossOrigin = 'anonymous';
-      logo.onload = () => {
-        ctx.drawImage(logo, 104, 8, 24, 24);
-        img.src = canvas.toDataURL('image/png');
-      };
-      logo.src = '/data/logolol.png';
+      img.src = canvas.toDataURL('image/png');
     });
 }
 document.addEventListener('DOMContentLoaded', loadCaptcha);
