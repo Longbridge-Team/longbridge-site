@@ -105,9 +105,36 @@ function fetchUsers() {
     .then(renderUsers);
 }
 
+function loadGifs(query = '') {
+  const url = query
+    ? `https://g.tenor.com/v1/search?q=${encodeURIComponent(query)}&key=LIVDSRZULELA&limit=10`
+    : 'https://g.tenor.com/v1/trending?key=LIVDSRZULELA&limit=10';
+  fetch(url)
+    .then(r => r.json())
+    .then(d => {
+      if (!window.gifResults) return;
+      gifResults.innerHTML = '';
+      d.results.forEach(g => {
+        const img = document.createElement('img');
+        img.src = g.media[0].tinygif.url;
+        img.addEventListener('click', () => {
+          gifPanel.style.display = 'none';
+          fetch('send_message.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: 'message=' + encodeURIComponent('[img:' + g.media[0].tinygif.url + ']') + '&channel=' + encodeURIComponent(getChannel())
+          }).then(fetchMessages);
+        });
+        gifResults.appendChild(img);
+      });
+    });
+}
+
 function nudge() {
   const panel = document.querySelector('.chat-panel');
   if (!panel) return;
+  panel.classList.remove('nudge');
+  void panel.offsetWidth;
   panel.classList.add('nudge');
   const audio = document.getElementById('nudge-sound');
   if (audio) {
@@ -150,7 +177,17 @@ document.addEventListener('DOMContentLoaded', () => {
   const imageInput = document.getElementById('image-input');
   const gifBtn = document.getElementById('gif-btn');
   const gifPanel = document.getElementById('gif-panel');
+  const gifSearch = document.getElementById('gif-search');
+  const gifResults = document.getElementById('gif-results');
+  const channelButtons = document.querySelectorAll('.channel-btn');
+  const drawBtn = document.getElementById('draw-btn');
+  const drawModal = document.getElementById('draw-modal');
+  const drawCanvas = document.getElementById('draw-canvas');
+  const drawSend = document.getElementById('draw-send');
+  const drawClear = document.getElementById('draw-clear');
+  const drawClose = document.getElementById('draw-close');
   const callInfo = document.getElementById('call-info');
+  window.gifResults = gifResults;
 
   fetch('list_emoticons.php')
     .then(r => r.json())
@@ -205,31 +242,32 @@ document.addEventListener('DOMContentLoaded', () => {
     fetchMessages();
     emojiPanel.style.display = 'none';
   });
+  channelButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      channelButtons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      channelSelect.value = btn.dataset.channel;
+      lastMessageId = 0;
+      fetchMessages();
+      emojiPanel.style.display = 'none';
+    });
+  });
   emojiBtn.addEventListener('click', () => {
     emojiPanel.style.display = emojiPanel.style.display === 'block' ? 'none' : 'block';
   });
   uploadBtn.addEventListener('click', () => imageInput.click());
   gifBtn.addEventListener('click', () => {
     gifPanel.style.display = gifPanel.style.display === 'block' ? 'none' : 'block';
-    if (gifPanel.dataset.loaded) return;
-    fetch('https://g.tenor.com/v1/trending?key=LIVDSRZULELA&limit=10')
-      .then(r => r.json())
-      .then(d => {
-        d.results.forEach(g => {
-          const img = document.createElement('img');
-          img.src = g.media[0].tinygif.url;
-          img.addEventListener('click', () => {
-            gifPanel.style.display = 'none';
-            fetch('send_message.php', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-              body: 'message=' + encodeURIComponent('[img:' + g.media[0].tinygif.url + ']') + '&channel=' + encodeURIComponent(getChannel())
-            }).then(fetchMessages);
-          });
-          gifPanel.appendChild(img);
-        });
-        gifPanel.dataset.loaded = '1';
-      });
+    if (!gifPanel.dataset.loaded) {
+      loadGifs();
+      gifPanel.dataset.loaded = '1';
+    }
+  });
+  gifSearch.addEventListener('keydown', e => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      loadGifs(gifSearch.value.trim());
+    }
   });
   nudgeBtn.addEventListener('click', () => {
     fetch('send_message.php', {
@@ -238,6 +276,49 @@ document.addEventListener('DOMContentLoaded', () => {
       body: 'message=' + encodeURIComponent('/nudge') + '&channel=' + encodeURIComponent(getChannel())
     }).then(fetchMessages);
     emojiPanel.style.display = 'none';
+  });
+  drawBtn.addEventListener('click', () => {
+    drawModal.classList.add('active');
+  });
+  drawClose.addEventListener('click', () => {
+    drawModal.classList.remove('active');
+  });
+  drawClear.addEventListener('click', () => {
+    const ctx = drawCanvas.getContext('2d');
+    ctx.clearRect(0, 0, drawCanvas.width, drawCanvas.height);
+  });
+  let drawing = false;
+  const ctx = drawCanvas.getContext('2d');
+  ctx.lineWidth = 2;
+  ctx.strokeStyle = '#000';
+  drawCanvas.addEventListener('mousedown', e => {
+    drawing = true;
+    ctx.beginPath();
+    ctx.moveTo(e.offsetX, e.offsetY);
+  });
+  drawCanvas.addEventListener('mousemove', e => {
+    if (!drawing) return;
+    ctx.lineTo(e.offsetX, e.offsetY);
+    ctx.stroke();
+  });
+  document.addEventListener('mouseup', () => { drawing = false; });
+  drawSend.addEventListener('click', () => {
+    drawCanvas.toBlob(blob => {
+      const fd = new FormData();
+      fd.append('file', blob, 'drawing.png');
+      fetch('upload_image.php', { method: 'POST', body: fd })
+        .then(r => r.ok ? r.json() : Promise.reject())
+        .then(d => fetch('send_message.php', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: 'message=' + encodeURIComponent('[img:' + d.url + ']') + '&channel=' + encodeURIComponent(getChannel())
+        }))
+        .then(() => {
+          drawModal.classList.remove('active');
+          ctx.clearRect(0, 0, drawCanvas.width, drawCanvas.height);
+          fetchMessages();
+        });
+    });
   });
   callBtn.addEventListener('click', () => {
     emojiPanel.style.display = 'none';
