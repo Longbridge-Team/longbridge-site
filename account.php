@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $name = bin2hex(random_bytes(8)) . $ext;
                 $dest = __DIR__ . '/../uploads/' . $name;
                 if (move_uploaded_file($_FILES['profile_file']['tmp_name'], $dest)) {
-                    $pic = '/uploads/' . $name;
+                    $pic = '/image.php?f=' . $name;
                 } else {
                     $error = 'Upload failed';
                 }

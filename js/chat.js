@@ -10,9 +10,14 @@ let availableEmojis = new Set();
 let usersPage = 1;
 const USERS_PER_PAGE = 10;
 let jitsiApi = null;
+let callUsers = new Set();
 
 function formatMessage(text) {
   let escaped = escapeHtml(text);
+  escaped = escaped.replace(/\[img:(https?:\/\/[^\s]+)\]/g, (m, url) => {
+    const safe = url.replace(/"/g, '');
+    return `<img src="${safe}" class="chat-img">`;
+  });
   escaped = escaped.replace(/:([a-zA-Z0-9_]+):/g, (m, name) => {
     if (availableEmojis.has(name + '.png')) {
       return `<img src="/img/wlm/emoticons/${name}.png" alt="${name}" class="emoji">`;
@@ -112,6 +117,17 @@ function nudge() {
   setTimeout(() => panel.classList.remove('nudge'), 500);
 }
 
+function showCallInfo() {
+  const info = document.getElementById('call-info');
+  if (!info) return;
+  if (callUsers.size === 0) {
+    info.textContent = '';
+    return;
+  }
+  info.textContent = 'In call: ' + Array.from(callUsers).join(', ') +
+    ' (' + callUsers.size + ')';
+}
+
 function fetchMessages() {
   fetch('fetch_messages.php?channel=' + encodeURIComponent(getChannel()))
     .then(r => r.json())
@@ -130,6 +146,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const usersPrev = document.getElementById('users-prev');
   const usersNext = document.getElementById('users-next');
   const emojiPanel = document.getElementById('emoji-panel');
+  const uploadBtn = document.getElementById('upload-btn');
+  const imageInput = document.getElementById('image-input');
+  const gifBtn = document.getElementById('gif-btn');
+  const gifPanel = document.getElementById('gif-panel');
+  const callInfo = document.getElementById('call-info');
 
   fetch('list_emoticons.php')
     .then(r => r.json())
@@ -153,13 +174,30 @@ document.addEventListener('DOMContentLoaded', () => {
     e.preventDefault();
     const input = document.getElementById('chat-input');
     const msg = input.value.trim();
-    if (!msg) return;
-    fetch('send_message.php', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: 'message=' + encodeURIComponent(msg) + '&channel=' + encodeURIComponent(getChannel())
-    }).then(fetchMessages);
+    const hasFile = imageInput.files.length > 0;
+    const sendText = () => {
+      if (!msg) return Promise.resolve();
+      return fetch('send_message.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: 'message=' + encodeURIComponent(msg) + '&channel=' + encodeURIComponent(getChannel())
+      });
+    };
+    const sendImg = () => {
+      if (!hasFile) return Promise.resolve();
+      const fd = new FormData();
+      fd.append('file', imageInput.files[0]);
+      return fetch('upload_image.php', { method: 'POST', body: fd })
+        .then(r => r.ok ? r.json() : Promise.reject())
+        .then(d => fetch('send_message.php', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: 'message=' + encodeURIComponent('[img:' + d.url + ']') + '&channel=' + encodeURIComponent(getChannel())
+        }));
+    };
+    Promise.all([sendText(), sendImg()]).then(fetchMessages);
     input.value = '';
+    imageInput.value = '';
     emojiPanel.style.display = 'none';
   });
   channelSelect.addEventListener('change', () => {
@@ -169,6 +207,29 @@ document.addEventListener('DOMContentLoaded', () => {
   });
   emojiBtn.addEventListener('click', () => {
     emojiPanel.style.display = emojiPanel.style.display === 'block' ? 'none' : 'block';
+  });
+  uploadBtn.addEventListener('click', () => imageInput.click());
+  gifBtn.addEventListener('click', () => {
+    gifPanel.style.display = gifPanel.style.display === 'block' ? 'none' : 'block';
+    if (gifPanel.dataset.loaded) return;
+    fetch('https://g.tenor.com/v1/trending?key=LIVDSRZULELA&limit=10')
+      .then(r => r.json())
+      .then(d => {
+        d.results.forEach(g => {
+          const img = document.createElement('img');
+          img.src = g.media[0].tinygif.url;
+          img.addEventListener('click', () => {
+            gifPanel.style.display = 'none';
+            fetch('send_message.php', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+              body: 'message=' + encodeURIComponent('[img:' + g.media[0].tinygif.url + ']') + '&channel=' + encodeURIComponent(getChannel())
+            }).then(fetchMessages);
+          });
+          gifPanel.appendChild(img);
+        });
+        gifPanel.dataset.loaded = '1';
+      });
   });
   nudgeBtn.addEventListener('click', () => {
     fetch('send_message.php', {
@@ -185,7 +246,19 @@ document.addEventListener('DOMContentLoaded', () => {
       const room = 'Longbridge_' + encodeURIComponent(getChannel());
       jitsiApi = new JitsiMeetExternalAPI('meet.jit.si', {
         roomName: room,
-        parentNode: document.getElementById('jitsi-container')
+        parentNode: document.getElementById('jitsi-container'),
+        userInfo: { displayName: window.currentUser }
+      });
+      callUsers.clear();
+      callUsers.add(window.currentUser);
+      showCallInfo();
+      jitsiApi.addEventListener('participantJoined', p => {
+        if (p.displayName) callUsers.add(p.displayName);
+        showCallInfo();
+      });
+      jitsiApi.addEventListener('participantLeft', p => {
+        if (p.displayName) callUsers.delete(p.displayName);
+        showCallInfo();
       });
     };
     if (window.JitsiMeetExternalAPI) {
@@ -202,6 +275,8 @@ document.addEventListener('DOMContentLoaded', () => {
       jitsiApi.dispose();
       jitsiApi = null;
     }
+    callUsers.clear();
+    showCallInfo();
     callModal.classList.remove('active');
   });
   usersPrev.addEventListener('click', () => {
