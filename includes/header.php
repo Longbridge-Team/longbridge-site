@@ -29,6 +29,7 @@ if (!isset($currentPage)) {
       <li><a href="https://discord.gg/zP9fAPxtNj"><img height="40" width="40" src="https://upload.wikimedia.org/wikipedia/en/b/bf/Windows_Live_Messenger_icon.png" alt="Community">Community</a></li>
       <li><a <?php if($currentPage=='about') echo 'class="active"'; ?> href="/about.aspx"><img height="40" width="40" src="https://www.iconshock.com/image/Vista/General/file" alt="About">About</a></li>
       <?php if(isset($_SESSION['user'])): ?>
+      <li><a <?php if($currentPage=='chat') echo 'class="active"'; ?> href="/chat.aspx"><img height="40" width="40" src="https://upload.wikimedia.org/wikipedia/en/b/bf/Windows_Live_Messenger_icon.png" alt="Chat">Chat</a></li>
       <li class="welcome">Welcome, <?php echo htmlspecialchars($_SESSION['user']); ?></li>
       <li><a href="/logout.aspx"><img height="20" width="20" src="https://www.iconshock.com/image/Windows7/General/cross" alt="Logout">Logout</a></li>
       <?php else: ?>

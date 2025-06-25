@@ -1,0 +1,17 @@
+<?php
+session_start();
+if (!isset($_SESSION['user'])) {
+    http_response_code(403);
+    exit;
+}
+require __DIR__ . '/includes/db.php';
+$limit = 50;
+$stmt = $db->prepare('SELECT username, message, created FROM messages ORDER BY id DESC LIMIT ?');
+$stmt->bindValue(1, $limit, PDO::PARAM_INT);
+$stmt->execute();
+$messages = array_reverse($stmt->fetchAll(PDO::FETCH_ASSOC));
+header('Content-Type: application/json');
+header('Cache-Control: no-cache');
+echo json_encode($messages);
+
+
