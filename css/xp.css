@@ -311,3 +311,16 @@ footer .sidebar li {
   75% { transform: translate(-2px, 2px); }
   100% { transform: translate(0, 0); }
 }
+
+/* WLM inspired aerobutton styles from garcia-clara/windows-live-messenger */
+.aerobutton {
+  background-color: transparent;
+  border: 2px solid transparent;
+}
+.aerobutton:hover {
+  border-image: url('/img/wlm/general/aerobutton_border.png') 2 round;
+  background-size: 100% 100%;
+}
+.aerobutton:active {
+  border-image: url('/img/wlm/general/aerobutton_border_down.png') 2 round;
+}

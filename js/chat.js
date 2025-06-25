@@ -4,12 +4,18 @@ function escapeHtml(text) {
   return div.innerHTML;
 }
 
+let lastMessageId = 0;
+
 function renderMessages(msgs) {
   const win = document.getElementById('chat-window');
   win.innerHTML = '';
+  let highest = lastMessageId;
   msgs.forEach(m => {
+    if (m.id > highest) highest = m.id;
     if (m.message === '::nudge::') {
-      nudge();
+      if (m.id > lastMessageId) {
+        nudge();
+      }
       const item = document.createElement('div');
       item.className = 'chat-message system';
       item.textContent = m.username + ' sent a nudge!';
@@ -23,6 +29,7 @@ function renderMessages(msgs) {
                      `<span class="text">${escapeHtml(m.message)}</span>`;
     win.appendChild(item);
   });
+  lastMessageId = highest;
   win.scrollTop = win.scrollHeight;
 }
 
@@ -71,7 +78,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }).then(fetchMessages);
     input.value = '';
   });
-  channelSelect.addEventListener('change', fetchMessages);
+  channelSelect.addEventListener('change', () => {
+    lastMessageId = 0;
+    fetchMessages();
+  });
   nudgeBtn.addEventListener('click', () => {
     fetch('send_message.php', {
       method: 'POST',
