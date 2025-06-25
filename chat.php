@@ -12,6 +12,11 @@ include __DIR__ . '/includes/header.php';
   <h2><img width="40" src="https://upload.wikimedia.org/wikipedia/en/b/bf/Windows_Live_Messenger_icon.png" alt="">Chatroom</h2>
   <div id="chat-window" class="chat-window"></div>
   <div id="online-users" class="online-users"></div>
+  <div class="users-pagination">
+    <button type="button" id="users-prev" class="aerobutton">Prev</button>
+    <span id="users-page">1</span>
+    <button type="button" id="users-next" class="aerobutton">Next</button>
+  </div>
   <form id="chat-form" class="chat-form">
     <select id="chat-channel">
       <option value="general">General</option>
@@ -25,6 +30,12 @@ include __DIR__ . '/includes/header.php';
     <div id="emoji-panel" class="emoji-panel"></div>
   </form>
   <audio id="nudge-sound" src="/img/nudge.mp3" preload="auto"></audio>
+  <div id="call-modal" class="call-modal">
+    <div class="call-window">
+      <button type="button" id="call-close" class="aerobutton">X</button>
+      <div id="jitsi-container" class="jitsi-container"></div>
+    </div>
+  </div>
 </div>
 <script src="/js/chat.js"></script>
 <?php include __DIR__ . '/includes/footer.php'; ?>
