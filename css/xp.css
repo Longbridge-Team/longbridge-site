@@ -238,7 +238,7 @@ footer .sidebar li {
 /* Chat styles */
 .chat-panel {
   max-width: 476px;
-  margin: 0 auto;
+  margin: 20px auto;
   background: url('/img/wlm/background/chat_header.png') no-repeat top center;
   padding-top: 40px;
   position: relative;
@@ -271,30 +271,40 @@ footer .sidebar li {
   font-size: 13px;
   margin-bottom: 8px;
 }
+.online-users .user {
+  color: #008000;
+  cursor: pointer;
+}
+.mention {
+  background: #ffff99;
+  padding: 0 2px;
+  border-radius: 2px;
+}
 .chat-form {
   position: relative;
   display: flex;
   gap: 6px;
 }
 .chat-form button {
-  background: url('/img/wlm/general/arrow.png') no-repeat center;
-  width: 24px;
-  height: 24px;
-  border: 2px solid transparent;
+  width: 20px;
+  height: 20px;
   background-color: transparent;
+  border: 2px solid transparent;
 }
 .chat-form button:hover {
-  background-image: url('/img/wlm/general/arrow_white.png');
+  filter: brightness(1.2);
   cursor: pointer;
 }
 .chat-form #emoji-btn {
   background-image: url('/img/wlm/chat/select_emoticon.png');
+  background-size: contain;
 }
 .chat-form #emoji-btn:hover {
   filter: brightness(1.2);
 }
 .chat-form #nudge-btn {
   background-image: url('/img/wlm/chat/send_nudge.png');
+  background-size: contain;
 }
 .chat-form #nudge-btn:hover {
   filter: brightness(1.2);
