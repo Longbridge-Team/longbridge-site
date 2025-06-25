@@ -30,7 +30,7 @@ if (!isset($currentPage)) {
       <li><a <?php if($currentPage=='about') echo 'class="active"'; ?> href="/about.aspx"><img height="40" width="40" src="https://www.iconshock.com/image/Vista/General/file" alt="About">About</a></li>
       <?php if(isset($_SESSION['user'])): ?>
       <li class="welcome">Welcome, <?php echo htmlspecialchars($_SESSION['user']); ?></li>
-      <li><a href="/logout.aspx"><img height="40" width="40" src="https://www.iconshock.com/image/Vista/General/logout" alt="Logout">Logout</a></li>
+      <li><a href="/logout.aspx"><img height="20" width="20" src="https://www.iconshock.com/image/Windows7/General/cross" alt="Logout">Logout</a></li>
       <?php else: ?>
       <li><a <?php if($currentPage=='login') echo 'class="active"'; ?> href="/login.aspx"><img height="40" width="40" src="https://www.iconshock.com/image/Vista/General/lock" alt="Login">Login</a></li>
       <li><a <?php if($currentPage=='register') echo 'class="active"'; ?> href="/register.aspx"><img height="40" width="40" src="https://www.iconshock.com/image/Vista/Education/attendance_list" alt="Register">Register</a></li>
