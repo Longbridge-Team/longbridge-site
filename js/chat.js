@@ -104,6 +104,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const channelSelect = document.getElementById('chat-channel');
   const nudgeBtn = document.getElementById('nudge-btn');
   const emojiBtn = document.getElementById('emoji-btn');
+  const callBtn = document.getElementById('call-btn');
   const emojiPanel = document.getElementById('emoji-panel');
 
   fetch('list_emoticons.php')
@@ -151,6 +152,10 @@ document.addEventListener('DOMContentLoaded', () => {
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       body: 'message=' + encodeURIComponent('/nudge') + '&channel=' + encodeURIComponent(getChannel())
     }).then(fetchMessages);
+    emojiPanel.style.display = 'none';
+  });
+  callBtn.addEventListener('click', () => {
+    window.open('https://meet.jit.si/' + encodeURIComponent(getChannel()), '_blank');
     emojiPanel.style.display = 'none';
   });
   fetchMessages();
