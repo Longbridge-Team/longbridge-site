@@ -43,9 +43,14 @@ function renderMessages(msgs) {
     }
     const item = document.createElement('div');
     item.className = 'chat-message' + (m.username === window.currentUser ? ' own' : '');
+    let text = formatMessage(m.message);
+    if (window.currentUser) {
+      const regex = new RegExp('@' + window.currentUser.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\b', 'gi');
+      text = text.replace(regex, '<span class="mention">$&</span>');
+    }
     item.innerHTML = `<span class="sender">${escapeHtml(m.username)}</span> ` +
                      `<span class="time">${escapeHtml(m.created)}</span><br>` +
-                     `<span class="text">${formatMessage(m.message)}</span>`;
+                     `<span class="text">${text}</span>`;
     win.appendChild(item);
   });
   lastMessageId = highest;
@@ -58,7 +63,15 @@ function getChannel() {
 
 function renderUsers(users) {
   const list = document.getElementById('online-users');
-  list.innerHTML = '<strong>Online:</strong> ' + users.map(escapeHtml).join(', ');
+  list.innerHTML = '<strong>Online:</strong> ' +
+    users.map(u => `<span class="user">${escapeHtml(u)}</span>`).join(', ');
+  list.querySelectorAll('.user').forEach(span => {
+    span.addEventListener('click', () => {
+      const input = document.getElementById('chat-input');
+      input.value += '@' + span.textContent + ' ';
+      input.focus();
+    });
+  });
 }
 
 function fetchUsers() {
