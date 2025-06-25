@@ -185,6 +185,24 @@ footer {
   margin-bottom: 4px;
 }
 
+footer .sidebar {
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin: 10px 0 0 0;
+}
+
+footer .sidebar h3 {
+  border-bottom: none;
+  justify-content: center;
+  margin-bottom: 6px;
+}
+
+footer .sidebar li {
+  border-bottom: none;
+  justify-content: center;
+}
+
 /* Download button */
 .download-button-img {
   width: 140px !important;
