@@ -7,6 +7,9 @@ function escapeHtml(text) {
 let lastMessageId = 0;
 const MAX_VISIBLE_MESSAGES = 25;
 let availableEmojis = new Set();
+let usersPage = 1;
+const USERS_PER_PAGE = 10;
+let jitsiApi = null;
 
 function formatMessage(text) {
   let escaped = escapeHtml(text);
@@ -52,6 +55,20 @@ function renderMessages(msgs) {
                      `<span class="time">${escapeHtml(m.created)}</span><br>` +
                      `<span class="text">${text}</span>`;
     win.appendChild(item);
+    if (m.id > lastMessageId && window.currentUser) {
+      const mentionRegex = new RegExp('@' + window.currentUser.replace(/[.*+?^${}()|[\\]\\]/g, '\\$&') + '\\b', 'i');
+      if (mentionRegex.test(m.message)) {
+        nudge();
+        const note = document.createElement('div');
+        note.className = 'chat-message system';
+        if (m.username === window.currentUser) {
+          note.textContent = 'You have mentioned yourself';
+        } else {
+          note.textContent = m.username + ' mentioned ' + window.currentUser;
+        }
+        win.appendChild(note);
+      }
+    }
   });
   lastMessageId = highest;
   win.scrollTop = win.scrollHeight;
@@ -61,10 +78,10 @@ function getChannel() {
   return document.getElementById('chat-channel').value;
 }
 
-function renderUsers(users) {
+function renderUsers(data) {
   const list = document.getElementById('online-users');
   list.innerHTML = '<strong>Online:</strong> ' +
-    users.map(u => `<span class="user">${escapeHtml(u)}</span>`).join(', ');
+    data.users.map(u => `<span class="user">${escapeHtml(u)}</span>`).join(', ');
   list.querySelectorAll('.user').forEach(span => {
     span.addEventListener('click', () => {
       const input = document.getElementById('chat-input');
@@ -72,10 +89,13 @@ function renderUsers(users) {
       input.focus();
     });
   });
+  document.getElementById('users-page').textContent = data.page + '/' + data.totalPages;
+  document.getElementById('users-prev').disabled = data.page <= 1;
+  document.getElementById('users-next').disabled = data.page >= data.totalPages;
 }
 
 function fetchUsers() {
-  fetch('fetch_users.php')
+  fetch(`fetch_users.php?page=${usersPage}&per_page=${USERS_PER_PAGE}`)
     .then(r => r.json())
     .then(renderUsers);
 }
@@ -105,6 +125,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const nudgeBtn = document.getElementById('nudge-btn');
   const emojiBtn = document.getElementById('emoji-btn');
   const callBtn = document.getElementById('call-btn');
+  const callModal = document.getElementById('call-modal');
+  const callClose = document.getElementById('call-close');
+  const usersPrev = document.getElementById('users-prev');
+  const usersNext = document.getElementById('users-next');
   const emojiPanel = document.getElementById('emoji-panel');
 
   fetch('list_emoticons.php')
@@ -155,8 +179,40 @@ document.addEventListener('DOMContentLoaded', () => {
     emojiPanel.style.display = 'none';
   });
   callBtn.addEventListener('click', () => {
-    window.open('https://meet.jit.si/' + encodeURIComponent(getChannel()), '_blank');
     emojiPanel.style.display = 'none';
+    callModal.classList.add('active');
+    const start = () => {
+      const room = 'Longbridge_' + encodeURIComponent(getChannel());
+      jitsiApi = new JitsiMeetExternalAPI('meet.jit.si', {
+        roomName: room,
+        parentNode: document.getElementById('jitsi-container')
+      });
+    };
+    if (window.JitsiMeetExternalAPI) {
+      start();
+    } else {
+      const s = document.createElement('script');
+      s.src = 'https://meet.jit.si/external_api.js';
+      s.onload = start;
+      document.body.appendChild(s);
+    }
+  });
+  callClose.addEventListener('click', () => {
+    if (jitsiApi) {
+      jitsiApi.dispose();
+      jitsiApi = null;
+    }
+    callModal.classList.remove('active');
+  });
+  usersPrev.addEventListener('click', () => {
+    if (usersPage > 1) {
+      usersPage--;
+      fetchUsers();
+    }
+  });
+  usersNext.addEventListener('click', () => {
+    usersPage++;
+    fetchUsers();
   });
   fetchMessages();
   fetchUsers();

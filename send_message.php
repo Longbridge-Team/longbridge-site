@@ -22,6 +22,14 @@ if ($last && $last['message'] === $input && strtotime($last['created']) > time()
     exit; // ignore spammy duplicate
 }
 $msg = $input === '/nudge' ? '::nudge::' : $input;
+if ($msg === '::nudge::') {
+    $check = $db->prepare('SELECT created FROM messages WHERE username = ? AND message = "::nudge::" ORDER BY id DESC LIMIT 1');
+    $check->execute([$_SESSION['user']]);
+    $lastNudge = $check->fetchColumn();
+    if ($lastNudge && strtotime($lastNudge) > time() - 15) {
+        exit; // cooldown
+    }
+}
 $stmt = $db->prepare('INSERT INTO messages (username, message, channel) VALUES (?, ?, ?)');
 $stmt->execute([$_SESSION['user'], $msg, $channel]);
 ?>
