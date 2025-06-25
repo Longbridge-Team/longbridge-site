@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($row && password_verify($pass, $row['password'])) {
             $_SESSION['user'] = $user;
-            $_SESSION['profile_pic'] = $row['profile_pic'] ?? null;
+            $_SESSION['profile_pic'] = $row['profile_pic'] ?: '/img/defaultpfp.png';
             header('Location: /');
             exit;
         } else {

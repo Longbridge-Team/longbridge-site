@@ -19,10 +19,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $error = 'Username already taken';
         } else {
             $hash = password_hash($pass, PASSWORD_DEFAULT);
-            $insert = $db->prepare('INSERT INTO users (username, password) VALUES (?, ?)');
-            $insert->execute([$user, $hash]);
+            $defaultPic = '/img/defaultpfp.png';
+            $insert = $db->prepare('INSERT INTO users (username, password, profile_pic) VALUES (?, ?, ?)');
+            $insert->execute([$user, $hash, $defaultPic]);
             $_SESSION['user'] = $user;
-            $_SESSION['profile_pic'] = null;
+            $_SESSION['profile_pic'] = $defaultPic;
             header('Location: /');
             exit;
         }
