@@ -42,10 +42,11 @@ include __DIR__ . '/includes/header.php';
       <label>Password: <input type="password" name="password"></label>
     </p>
     <p>
-      <img src="captcha.php" alt="captcha"><br>
+      <img class="captcha-img" alt="captcha"><br>
       <label>Enter text: <input type="text" name="captcha"></label>
     </p>
     <button type="submit">Register</button>
   </form>
 </div>
+<script src="/js/captcha.js"></script>
 <?php include __DIR__ . '/includes/footer.php'; ?>
