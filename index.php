@@ -20,7 +20,6 @@ include __DIR__ . '/includes/header.php';
     </div>
   </div>
 </div>
-
 <div class="panel">
   <h2><img width="150" src="https://www.iconshock.com/image/Brilliant/General/window" alt="">Key Features</h2>
   <div class="grid">
@@ -41,8 +40,7 @@ include __DIR__ . '/includes/header.php';
       <div><h3>Legacy Restored</h3><p>Movie Maker, Photo Gallery, classic widgets.</p></div>
     </div>
   </div>
-</div>
-
+  </div>
 <aside class="sidebar">
   <h3><img src="https://www.iconshock.com/image/Vista/General/computer" alt="">Build Details</h3>
   <ul>
