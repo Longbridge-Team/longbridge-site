@@ -237,7 +237,7 @@ footer .sidebar li {
 }
 /* Chat styles */
 .chat-panel {
-  max-width: 476px;
+  margin: 0 auto;
   margin: 40px auto 20px;
   background: url('/img/wlm/background/chat_header.png') no-repeat top center;
   padding-top: 40px;
