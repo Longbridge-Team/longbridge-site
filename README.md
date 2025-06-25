@@ -13,4 +13,3 @@ User data is stored in a MariaDB database. Configure the connection using the `D
 The `data` folder holds temporary files such as the rate limit cache and must not
 be publicly accessible. An `.htaccess` file denying all requests is included so
 contents from this folder cannot be served directly by the web server.
-
