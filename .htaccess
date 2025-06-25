@@ -9,6 +9,8 @@ RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^(.+)\.aspx$ $1.php [L]
 
-# Redirect direct .php requests to their .aspx versions
+# Redirect direct .php requests to their .aspx versions without looping
+# Skip redirection if the request was already internally rewritten
+RewriteCond %{ENV:REDIRECT_STATUS} ^$
 RewriteCond %{REQUEST_URI} \.php$
 RewriteRule ^(.+)\.php$ https://%{HTTP_HOST}/$1.aspx [R=301,L]
