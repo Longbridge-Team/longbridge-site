@@ -17,6 +17,7 @@ if (!isset($currentPage)) {
 <title><?php echo htmlspecialchars($title); ?></title>
 <link rel="icon" href="/favicon.ico" type="image/x-icon">
 <link rel="stylesheet" href="/css/xp.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/7.css">
 </head>
 <body>
 <div class="top-banner">Build 2 of <strong>Windows Longbridge</strong> is out!</div>
