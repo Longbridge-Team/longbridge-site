@@ -242,6 +242,9 @@ footer .sidebar li {
   background: url('/img/wlm/background/chat_header.png') no-repeat top center;
   padding-top: 40px;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 500px;
 }
 
 .chat-panel h2 {
@@ -262,7 +265,7 @@ footer .sidebar li {
 .chat-window {
   background: #fff url('/img/wlm/background/chat_icons_background.png') repeat-x top;
   border: 1px solid #a0a5b0;
-  height: 300px;
+  flex: 1;
   overflow-y: auto;
   padding: 5px;
   margin-bottom: 10px;
@@ -309,6 +312,13 @@ footer .sidebar li {
   background-size: 24px 16px;
 }
 .chat-form #nudge-btn:hover {
+  filter: brightness(1.2);
+}
+.chat-form #call-btn {
+  background-image: url('/img/wlm/emoticons/telephone.png');
+  background-size: 16px 16px;
+}
+.chat-form #call-btn:hover {
   filter: brightness(1.2);
 }
 .chat-form select {
