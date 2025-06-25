@@ -52,6 +52,11 @@ function nudge() {
   const panel = document.querySelector('.chat-panel');
   if (!panel) return;
   panel.classList.add('nudge');
+  const audio = document.getElementById('nudge-sound');
+  if (audio) {
+    audio.currentTime = 0;
+    audio.play().catch(() => {});
+  }
   setTimeout(() => panel.classList.remove('nudge'), 500);
 }
 
