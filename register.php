@@ -34,7 +34,7 @@ include __DIR__ . '/includes/header.php';
   <?php if ($error): ?>
   <p style="color:red;"><strong><?php echo htmlspecialchars($error); ?></strong></p>
   <?php endif; ?>
-  <form method="post" action="register.php">
+  <form method="post" action="register.aspx">
     <p>
       <label>Username: <input type="text" name="username"></label>
     </p>
