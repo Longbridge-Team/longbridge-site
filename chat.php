@@ -11,6 +11,7 @@ include __DIR__ . '/includes/header.php';
 <div class="panel chat-panel">
   <h2><img width="40" src="https://upload.wikimedia.org/wikipedia/en/b/bf/Windows_Live_Messenger_icon.png" alt="">Chatroom</h2>
   <div id="chat-window" class="chat-window"></div>
+  <div id="online-users" class="online-users"></div>
   <form id="chat-form" class="chat-form">
     <select id="chat-channel">
       <option value="general">General</option>
@@ -18,7 +19,8 @@ include __DIR__ . '/includes/header.php';
       <option value="offtopic">Off-topic</option>
     </select>
     <input type="text" id="chat-input" maxlength="250" placeholder="Type a message" autocomplete="off">
-    <button type="submit">Send</button>
+    <button type="button" id="nudge-btn" aria-label="Nudge"></button>
+    <button type="submit" aria-label="Send"></button>
   </form>
 </div>
 <script src="/js/chat.js"></script>

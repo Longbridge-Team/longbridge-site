@@ -21,7 +21,8 @@ $last = $check->fetch(PDO::FETCH_ASSOC);
 if ($last && $last['message'] === $input && strtotime($last['created']) > time() - 30) {
     exit; // ignore spammy duplicate
 }
+$msg = $input === '/nudge' ? '::nudge::' : $input;
 $stmt = $db->prepare('INSERT INTO messages (username, message, channel) VALUES (?, ?, ?)');
-$stmt->execute([$_SESSION['user'], $input, $channel]);
+$stmt->execute([$_SESSION['user'], $msg, $channel]);
 ?>
 
