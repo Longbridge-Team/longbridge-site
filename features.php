@@ -70,4 +70,11 @@ include __DIR__ . '/includes/header.php';
     </div>
   </div>
 </div>
+<div class="panel">
+  <h2><img width="100" src="https://www.iconshock.com/image/RealVista/Media/movie_file" alt="">Preview</h2>
+  <div style="text-align:center;">
+    <img src="https://files.catbox.moe/ch64xo.webp" alt="Longbridge Preview" style="max-width:100%;">
+  </div>
+</div>
+
 <?php include __DIR__ . '/includes/footer.php'; ?>
