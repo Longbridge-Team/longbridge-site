@@ -11,11 +11,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (strcasecmp($captcha, $_SESSION['captcha_text'] ?? '') !== 0) {
         $error = 'Captcha incorrect';
     } else {
-        $stmt = $db->prepare('SELECT password FROM users WHERE username = ?');
+        $stmt = $db->prepare('SELECT password, profile_pic FROM users WHERE username = ?');
         $stmt->execute([$user]);
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($row && password_verify($pass, $row['password'])) {
             $_SESSION['user'] = $user;
+            $_SESSION['profile_pic'] = $row['profile_pic'] ?? null;
             header('Location: /');
             exit;
         } else {

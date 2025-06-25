@@ -22,6 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $insert = $db->prepare('INSERT INTO users (username, password) VALUES (?, ?)');
             $insert->execute([$user, $hash]);
             $_SESSION['user'] = $user;
+            $_SESSION['profile_pic'] = null;
             header('Location: /');
             exit;
         }
