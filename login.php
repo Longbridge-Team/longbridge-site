@@ -1,5 +1,6 @@
 <?php
 session_start();
+require __DIR__ . '/includes/db.php';
 $error = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $user = $_POST['username'] ?? '';
@@ -7,12 +8,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $captcha = $_POST['captcha'] ?? '';
     if (strcasecmp($captcha, $_SESSION['captcha_text'] ?? '') !== 0) {
         $error = 'Captcha incorrect';
-    } elseif ($user === 'admin' && $pass === 'longbridge') {
-        $_SESSION['user'] = $user;
-        header('Location: /');
-        exit;
     } else {
-        $error = 'Invalid credentials';
+        $stmt = $db->prepare('SELECT password FROM users WHERE username = ?');
+        $stmt->execute([$user]);
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        if ($row && password_verify($pass, $row['password'])) {
+            $_SESSION['user'] = $user;
+            header('Location: /');
+            exit;
+        } else {
+            $error = 'Invalid credentials';
+        }
     }
 }
 $title = 'Login';
