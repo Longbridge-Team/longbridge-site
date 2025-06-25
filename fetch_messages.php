@@ -6,7 +6,7 @@ if (!isset($_SESSION['user'])) {
 }
 $channel = $_GET['channel'] ?? 'general';
 require __DIR__ . '/includes/db.php';
-$limit = 50;
+$limit = 100;
 $stmt = $db->prepare('SELECT id, username, message, created FROM messages WHERE channel = ? ORDER BY id DESC LIMIT ?');
 $stmt->bindValue(1, $channel, PDO::PARAM_STR);
 $stmt->bindValue(2, $limit, PDO::PARAM_INT);
