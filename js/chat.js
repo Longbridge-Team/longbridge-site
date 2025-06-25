@@ -18,8 +18,12 @@ function renderMessages(msgs) {
   win.scrollTop = win.scrollHeight;
 }
 
+function getChannel() {
+  return document.getElementById('chat-channel').value;
+}
+
 function fetchMessages() {
-  fetch('fetch_messages.php')
+  fetch('fetch_messages.php?channel=' + encodeURIComponent(getChannel()))
     .then(r => r.json())
     .then(renderMessages);
 }
@@ -27,6 +31,7 @@ function fetchMessages() {
 document.addEventListener('DOMContentLoaded', () => {
   window.currentUser = document.querySelector('.welcome')?.textContent.replace('Welcome, ','');
   const form = document.getElementById('chat-form');
+  const channelSelect = document.getElementById('chat-channel');
   form.addEventListener('submit', e => {
     e.preventDefault();
     const input = document.getElementById('chat-input');
@@ -35,10 +40,11 @@ document.addEventListener('DOMContentLoaded', () => {
     fetch('send_message.php', {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: 'message=' + encodeURIComponent(msg)
+      body: 'message=' + encodeURIComponent(msg) + '&channel=' + encodeURIComponent(getChannel())
     }).then(fetchMessages);
     input.value = '';
   });
+  channelSelect.addEventListener('change', fetchMessages);
   fetchMessages();
   setInterval(fetchMessages, 3000);
 });

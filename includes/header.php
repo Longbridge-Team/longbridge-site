@@ -30,7 +30,13 @@ if (!isset($currentPage)) {
       <li><a <?php if($currentPage=='about') echo 'class="active"'; ?> href="/about.aspx"><img height="40" width="40" src="https://www.iconshock.com/image/Vista/General/file" alt="About">About</a></li>
       <?php if(isset($_SESSION['user'])): ?>
       <li><a <?php if($currentPage=='chat') echo 'class="active"'; ?> href="/chat.aspx"><img height="40" width="40" src="https://upload.wikimedia.org/wikipedia/en/b/bf/Windows_Live_Messenger_icon.png" alt="Chat">Chat</a></li>
-      <li class="welcome">Welcome, <?php echo htmlspecialchars($_SESSION['user']); ?></li>
+      <li><a <?php if($currentPage=='account') echo 'class="active"'; ?> href="/account.aspx"><img height="40" width="40" src="https://www.iconshock.com/image/Windows7/General/user" alt="Account">Account</a></li>
+      <li class="welcome">
+        <?php if(!empty($_SESSION['profile_pic'])): ?>
+          <img class="avatar-small" src="<?php echo htmlspecialchars($_SESSION['profile_pic']); ?>" alt="avatar">
+        <?php endif; ?>
+        Welcome, <?php echo htmlspecialchars($_SESSION['user']); ?>
+      </li>
       <li><a href="/logout.aspx"><img height="20" width="20" src="https://www.iconshock.com/image/Windows7/General/cross" alt="Logout">Logout</a></li>
       <?php else: ?>
       <li><a <?php if($currentPage=='login') echo 'class="active"'; ?> href="/login.aspx"><img height="40" width="40" src="https://www.iconshock.com/image/Vista/General/lock" alt="Login">Login</a></li>

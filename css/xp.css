@@ -54,6 +54,12 @@ nav ul {
   font-weight: bold;
   color: #003399;
 }
+.avatar-small {
+  width: 24px;
+  height: 24px;
+  border-radius: 3px;
+  margin-right: 4px;
+}
 
 nav li a {
   display: flex;
@@ -245,6 +251,9 @@ footer .sidebar li {
 .chat-form {
   display: flex;
   gap: 6px;
+}
+.chat-form select {
+  padding: 4px;
 }
 .chat-form input[type="text"] {
   flex: 1;
