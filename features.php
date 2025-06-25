@@ -71,7 +71,7 @@ include __DIR__ . '/includes/header.php';
   </div>
 </div>
 <div class="panel">
-  <h2><img width="100" src="https://www.iconshock.com/image/RealVista/Media/movie_file" alt="">Preview</h2>
+  <h2><img width="75" src="https://www.iconshock.com/image/Clean/Video_production/analog_media" alt="">Preview</h2>
   <div style="text-align:center;">
     <iframe width="560" height="315" src="https://www.youtube.com/embed/gEWVCUZXlbg" title="Longbridge Preview Video" frameborder="0" allowfullscreen style="max-width:100%;"></iframe>
   </div>
