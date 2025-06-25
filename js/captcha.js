@@ -20,7 +20,7 @@ function loadCaptcha() {
         ctx.drawImage(logo, 70, 5, 20, 20);
         img.src = canvas.toDataURL('image/png');
       };
-      logo.src = 'https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.rw-designer.com%2Ficon-image%2F18707-256x256x8.png&f=1&nofb=1&ipt=b7def74a4ed775993db380fcb1e532c8b8c30f362d7761086b2f9dec3a67ff22';
+      logo.src = '/data/logolol.png';
     });
 }
 document.addEventListener('DOMContentLoaded', loadCaptcha);
