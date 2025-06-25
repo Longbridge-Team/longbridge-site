@@ -100,7 +100,7 @@ nav li a:hover {
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: 15px;
 }
 
@@ -109,13 +109,13 @@ nav li a:hover {
   border: 1px solid #a0a5b0;
   padding: 10px;
   display: flex;
-  align-items: flex-start;
-  gap: 10px;
+  align-items: center;
+  gap: 12px;
 }
 
 .card img {
-  width: 32px;
-  height: 32px;
+  width: 40px;
+  height: 40px;
 }
 
 .card h3 {

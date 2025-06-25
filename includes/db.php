@@ -1,11 +1,15 @@
 <?php
-$dbFile = __DIR__ . '/../data/users.db';
-$init = !file_exists($dbFile);
+$dbHost = getenv('DB_HOST') ?: 'localhost';
+$dbName = getenv('DB_NAME') ?: 'longbridge';
+$dbUser = getenv('DB_USER') ?: 'root';
+$dbPass = getenv('DB_PASS') ?: '';
 try {
-    $db = new PDO('sqlite:' . $dbFile);
+    $db = new PDO("mysql:host=$dbHost;dbname=$dbName;charset=utf8mb4", $dbUser, $dbPass);
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    if ($init) {
-        $db->exec("CREATE TABLE users (id INTEGER PRIMARY KEY, username TEXT UNIQUE, password TEXT);");
+    $db->exec("CREATE TABLE IF NOT EXISTS users (id INT AUTO_INCREMENT PRIMARY KEY, username VARCHAR(255) UNIQUE, password VARCHAR(255))");
+    $check = $db->prepare('SELECT COUNT(*) FROM users WHERE username = ?');
+    $check->execute(['admin']);
+    if (!$check->fetchColumn()) {
         $hash = password_hash('longbridge', PASSWORD_DEFAULT);
         $stmt = $db->prepare('INSERT INTO users (username, password) VALUES (?, ?)');
         $stmt->execute(['admin', $hash]);

@@ -11,6 +11,8 @@ include __DIR__ . '/includes/header.php';
     <li>Classic apps and retro widgets revived</li>
     <li>Longhorn and Vista sounds for nostalgia</li>
     <li>Stable Windows 10 base without bloat</li>
+    <li>Built-in Theme Manager lets you jump from Aero Hillel to Plex and tweak Start menu GUIs instantly</li>
+    <li>Upcoming update tool will deliver new builds with minimal fuss</li>
   </ul>
 </div>
 <div class="panel">
