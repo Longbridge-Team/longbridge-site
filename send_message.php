@@ -22,14 +22,8 @@ $msg = $input === '/nudge' ? '::nudge::' : $input;
 if ($msg !== '::nudge::' && $last && $last['message'] === $msg && strtotime($last['created']) > time() - 30) {
     exit; // ignore spammy duplicate
 }
-if ($msg === '::nudge::') {
-    $check = $db->prepare('SELECT created FROM messages WHERE username = ? AND message = "::nudge::" ORDER BY id DESC LIMIT 1');
-    $check->execute([$_SESSION['user']]);
-    $lastNudge = $check->fetchColumn();
-    if ($lastNudge && strtotime($lastNudge) > time() - 15) {
-        exit; // cooldown
-    }
-}
+// Nudge messages previously had a short cooldown to reduce spam. This check
+// has been removed to allow users to send nudges without delay.
 $stmt = $db->prepare('INSERT INTO messages (username, message, channel) VALUES (?, ?, ?)');
 $stmt->execute([$_SESSION['user'], $msg, $channel]);
 ?>
