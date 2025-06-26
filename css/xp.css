@@ -355,11 +355,7 @@ footer .sidebar li {
   filter: brightness(1.2);
 }
 .chat-form #send-btn {
-  background-image: url('/img/wlm/general/arrow.png');
-  background-size: 16px 16px;
-}
-.chat-form #send-btn:hover {
-  filter: brightness(1.2);
+  display: none;
 }
 .chat-form #draw-btn {
   background-image: url('/img/wlm/chat/329.png');
