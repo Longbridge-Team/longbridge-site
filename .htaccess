@@ -4,6 +4,10 @@ RewriteCond %{HTTPS} off
 RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 # END HTTPS Redirect
 
+# Custom error documents
+ErrorDocument 404 /404.php
+ErrorDocument 403 /403.php
+
 # Rewrite .aspx URLs to PHP equivalents
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
