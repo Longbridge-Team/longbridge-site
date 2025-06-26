@@ -341,7 +341,7 @@ footer .sidebar li {
   filter: brightness(1.2);
 }
 .chat-form #upload-btn {
-  background-image: url('/img/wlm/chat/329.png');
+  background-image: url('/img/wlm/emoticons/note.png');
   background-size: 16px 16px;
 }
 .chat-form #upload-btn:hover {
@@ -355,7 +355,7 @@ footer .sidebar li {
   filter: brightness(1.2);
 }
 .chat-form #draw-btn {
-  background-image: url('/img/wlm/emoticons/note.png');
+  background-image: url('/img/wlm/chat/329.png');
   background-size: 16px 16px;
 }
 .chat-form #draw-btn:hover {
