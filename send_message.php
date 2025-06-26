@@ -18,10 +18,10 @@ if (mb_strlen($input) > 250) {
 $check = $db->prepare('SELECT message, created FROM messages WHERE username = ? ORDER BY id DESC LIMIT 1');
 $check->execute([$_SESSION['user']]);
 $last = $check->fetch(PDO::FETCH_ASSOC);
-if ($last && $last['message'] === $input && strtotime($last['created']) > time() - 30) {
+$msg = $input === '/nudge' ? '::nudge::' : $input;
+if ($msg !== '::nudge::' && $last && $last['message'] === $msg && strtotime($last['created']) > time() - 30) {
     exit; // ignore spammy duplicate
 }
-$msg = $input === '/nudge' ? '::nudge::' : $input;
 if ($msg === '::nudge::') {
     $check = $db->prepare('SELECT created FROM messages WHERE username = ? AND message = "::nudge::" ORDER BY id DESC LIMIT 1');
     $check->execute([$_SESSION['user']]);

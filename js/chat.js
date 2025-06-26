@@ -107,8 +107,8 @@ function fetchUsers() {
 
 function loadGifs(query = '') {
   const url = query
-    ? `https://g.tenor.com/v1/search?q=${encodeURIComponent(query)}&key=LIVDSRZULELA&limit=10`
-    : 'https://g.tenor.com/v1/trending?key=LIVDSRZULELA&limit=10';
+    ? `https://api.tenor.com/v1/search?q=${encodeURIComponent(query)}&key=LIVDSRZULELA&limit=10`
+    : 'https://api.tenor.com/v1/trending?key=LIVDSRZULELA&limit=10';
   fetch(url)
     .then(r => r.json())
     .then(d => {
