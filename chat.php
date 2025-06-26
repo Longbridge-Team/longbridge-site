@@ -19,24 +19,23 @@ include __DIR__ . '/includes/header.php';
     <button type="button" id="users-next" class="aerobutton">Next</button>
   </div>
   <form id="chat-form" class="chat-form">
-    <div class="channel-buttons">
-      <button type="button" class="channel-btn active" data-channel="general">General</button>
-      <button type="button" class="channel-btn" data-channel="tech">Tech</button>
-      <button type="button" class="channel-btn" data-channel="offtopic">Off-topic</button>
-    </div>
-    <select id="chat-channel" style="display:none">
+    <select id="chat-channel">
       <option value="general" selected>General</option>
       <option value="tech">Tech</option>
       <option value="offtopic">Off-topic</option>
     </select>
     <input type="text" id="chat-input" maxlength="250" placeholder="Type a message" autocomplete="off">
     <input type="file" id="image-input" accept="image/png,image/jpeg,image/gif" style="display:none">
-    <button type="button" id="emoji-btn" class="aerobutton" aria-label="Emoji"></button>
-    <button type="button" id="nudge-btn" class="aerobutton" aria-label="Nudge"></button>
-    <button type="button" id="call-btn" class="aerobutton" aria-label="Call"></button>
-    <button type="button" id="upload-btn" class="aerobutton" aria-label="Upload"></button>
-    <button type="button" id="gif-btn" class="aerobutton" aria-label="GIF"></button>
-    <button type="button" id="draw-btn" class="aerobutton" aria-label="Draw"></button>
+    <div class="btn-row">
+      <button type="button" id="emoji-btn" class="aerobutton" aria-label="Emoji"></button>
+      <button type="button" id="nudge-btn" class="aerobutton" aria-label="Nudge"></button>
+      <button type="button" id="call-btn" class="aerobutton" aria-label="Call"></button>
+    </div>
+    <div class="btn-row">
+      <button type="button" id="upload-btn" class="aerobutton" aria-label="Upload"></button>
+      <button type="button" id="gif-btn" class="aerobutton" aria-label="GIF"></button>
+      <button type="button" id="draw-btn" class="aerobutton" aria-label="Draw"></button>
+    </div>
     <div id="emoji-panel" class="emoji-panel"></div>
     <div id="gif-panel" class="gif-panel">
       <input type="text" id="gif-search" placeholder="Search GIFs">

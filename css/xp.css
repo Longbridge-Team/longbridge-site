@@ -296,25 +296,10 @@ footer .sidebar li {
   padding: 0 2px;
   border-radius: 2px;
 }
-.channel-buttons {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 4px;
-  margin-bottom: 6px;
-}
-.channel-buttons button {
-  background: #e8ecf4;
-  border: 1px solid #a0a5b0;
-  cursor: pointer;
-  padding: 2px 4px;
-}
-.channel-buttons button.active {
-  background: #d0e4ff;
-  border-color: #3a62a0;
-}
 .chat-form {
   position: relative;
   display: flex;
+  flex-direction: column;
   gap: 6px;
 }
 .chat-form button {
@@ -328,6 +313,11 @@ footer .sidebar li {
 .chat-form button:hover {
   filter: brightness(1.2);
   cursor: pointer;
+}
+.btn-row {
+  display: flex;
+  gap: 6px;
+  justify-content: flex-start;
 }
 .chat-form #emoji-btn {
   background-image: url('/img/wlm/chat/select_emoticon.png');
@@ -364,12 +354,20 @@ footer .sidebar li {
 .chat-form #gif-btn:hover {
   filter: brightness(1.2);
 }
+.chat-form #draw-btn {
+  background-image: url('/img/wlm/emoticons/note.png');
+  background-size: 16px 16px;
+}
+.chat-form #draw-btn:hover {
+  filter: brightness(1.2);
+}
 .chat-form select {
   padding: 4px;
   border: 1px solid #a0a5b0;
 }
 .chat-form input[type="text"] {
-  flex: 1;
+  width: 100%;
+  box-sizing: border-box;
   padding: 4px;
   border: 1px solid #a0a5b0;
 }
