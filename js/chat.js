@@ -186,7 +186,15 @@ document.addEventListener('DOMContentLoaded', () => {
   const drawClear = document.getElementById('draw-clear');
   const drawClose = document.getElementById('draw-close');
   const callInfo = document.getElementById('call-info');
+  const chatInput = document.getElementById('chat-input');
   window.gifResults = gifResults;
+
+  chatInput.addEventListener('keydown', e => {
+    if (e.code === 'Space' && !e.shiftKey && !e.ctrlKey && !e.altKey && !e.metaKey) {
+      e.preventDefault();
+      form.dispatchEvent(new Event('submit', { cancelable: true }));
+    }
+  });
 
   fetch('list_emoticons.php')
     .then(r => r.json())
