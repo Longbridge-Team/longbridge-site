@@ -11,6 +11,8 @@ let usersPage = 1;
 const USERS_PER_PAGE = 10;
 let jitsiApi = null;
 let callUsers = new Set();
+let gifPanel;
+let gifResults;
 
 function formatMessage(text) {
   let escaped = escapeHtml(text);
@@ -112,7 +114,7 @@ function loadGifs(query = '') {
   fetch(url)
     .then(r => r.json())
     .then(d => {
-      if (!window.gifResults) return;
+      if (!gifResults || !gifPanel) return;
       gifResults.innerHTML = '';
       d.results.forEach(g => {
         const img = document.createElement('img');
@@ -176,9 +178,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const uploadBtn = document.getElementById('upload-btn');
   const imageInput = document.getElementById('image-input');
   const gifBtn = document.getElementById('gif-btn');
-  const gifPanel = document.getElementById('gif-panel');
+  gifPanel = document.getElementById('gif-panel');
   const gifSearch = document.getElementById('gif-search');
-  const gifResults = document.getElementById('gif-results');
+  gifResults = document.getElementById('gif-results');
   const drawBtn = document.getElementById('draw-btn');
   const drawModal = document.getElementById('draw-modal');
   const drawCanvas = document.getElementById('draw-canvas');
@@ -187,7 +189,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const drawClose = document.getElementById('draw-close');
   const callInfo = document.getElementById('call-info');
   const chatInput = document.getElementById('chat-input');
-  window.gifResults = gifResults;
 
   chatInput.addEventListener('keydown', e => {
     if (e.code === 'Space' && !e.shiftKey && !e.ctrlKey && !e.altKey && !e.metaKey) {
