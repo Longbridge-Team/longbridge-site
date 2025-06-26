@@ -26,6 +26,7 @@ include __DIR__ . '/includes/header.php';
     </select>
     <input type="text" id="chat-input" maxlength="250" placeholder="Type a message" autocomplete="off">
     <input type="file" id="image-input" accept="image/png,image/jpeg,image/gif" style="display:none">
+    <button type="submit" id="send-btn" class="aerobutton" aria-label="Send"></button>
     <div class="btn-row">
       <button type="button" id="emoji-btn" class="aerobutton" aria-label="Emoji"></button>
       <button type="button" id="nudge-btn" class="aerobutton" aria-label="Nudge"></button>

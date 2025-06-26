@@ -9,8 +9,11 @@ RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^(.+)\.aspx$ $1.php [L]
 
-# Redirect direct .php requests to their .aspx versions without looping
-# Skip redirection if the request was already internally rewritten
+# Redirect direct .php requests for page routes to their .aspx
+# counterparts without affecting API endpoints. Skip redirection if the
+# request was already internally rewritten. This ensures AJAX calls to
+# scripts like send_message.php continue to work.
 RewriteCond %{ENV:REDIRECT_STATUS} ^$
 RewriteCond %{REQUEST_URI} \.php$
+RewriteCond %{REQUEST_URI} !^/(send_message|fetch_messages|fetch_users|upload_image|list_emoticons|captcha|image)\.php$
 RewriteRule ^(.+)\.php$ https://%{HTTP_HOST}/$1.aspx [R=301,L]
