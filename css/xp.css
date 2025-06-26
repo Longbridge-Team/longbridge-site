@@ -263,7 +263,7 @@ footer .sidebar li {
   align-items: center;
 }
 .chat-window {
-  background: #fff url('/img/wlm/background/chat_icons_background.png') repeat-x top;
+  background: #fff;
   border: 1px solid #a0a5b0;
   flex: 1;
   overflow-y: auto;
