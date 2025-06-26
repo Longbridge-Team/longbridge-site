@@ -119,14 +119,8 @@ function loadGifs(query = '') {
       d.results.forEach(g => {
         const img = document.createElement('img');
         img.src = g.media[0].tinygif.url;
-        img.addEventListener('click', () => {
-          gifPanel.style.display = 'none';
-          fetch('send_message.php', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: 'message=' + encodeURIComponent('[img:' + g.media[0].tinygif.url + ']') + '&channel=' + encodeURIComponent(getChannel())
-          }).then(fetchMessages);
-        });
+        img.dataset.url = g.media[0].tinygif.url;
+        img.draggable = false;
         gifResults.appendChild(img);
       });
     });
@@ -181,6 +175,17 @@ document.addEventListener('DOMContentLoaded', () => {
   gifPanel = document.getElementById('gif-panel');
   const gifSearch = document.getElementById('gif-search');
   gifResults = document.getElementById('gif-results');
+  gifResults.addEventListener('click', e => {
+    if (e.target.tagName === 'IMG') {
+      gifPanel.style.display = 'none';
+      const url = e.target.dataset.url;
+      fetch('send_message.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: 'message=' + encodeURIComponent('[img:' + url + ']') + '&channel=' + encodeURIComponent(getChannel())
+      }).then(fetchMessages);
+    }
+  });
   const drawBtn = document.getElementById('draw-btn');
   const drawModal = document.getElementById('draw-modal');
   const drawCanvas = document.getElementById('draw-canvas');
