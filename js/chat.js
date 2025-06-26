@@ -14,7 +14,7 @@ let callUsers = new Set();
 
 function formatMessage(text) {
   let escaped = escapeHtml(text);
-  escaped = escaped.replace(/\[img:(https?:\/\/[^\s]+)\]/g, (m, url) => {
+  escaped = escaped.replace(/\[img:([^\]\s]+)\]/g, (m, url) => {
     const safe = url.replace(/"/g, '');
     return `<img src="${safe}" class="chat-img">`;
   });
@@ -179,7 +179,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const gifPanel = document.getElementById('gif-panel');
   const gifSearch = document.getElementById('gif-search');
   const gifResults = document.getElementById('gif-results');
-  const channelButtons = document.querySelectorAll('.channel-btn');
   const drawBtn = document.getElementById('draw-btn');
   const drawModal = document.getElementById('draw-modal');
   const drawCanvas = document.getElementById('draw-canvas');
@@ -241,16 +240,6 @@ document.addEventListener('DOMContentLoaded', () => {
     lastMessageId = 0;
     fetchMessages();
     emojiPanel.style.display = 'none';
-  });
-  channelButtons.forEach(btn => {
-    btn.addEventListener('click', () => {
-      channelButtons.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      channelSelect.value = btn.dataset.channel;
-      lastMessageId = 0;
-      fetchMessages();
-      emojiPanel.style.display = 'none';
-    });
   });
   emojiBtn.addEventListener('click', () => {
     emojiPanel.style.display = emojiPanel.style.display === 'block' ? 'none' : 'block';
